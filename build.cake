@@ -25,15 +25,7 @@ Task("Clean")
     CleanDirectory(buildDir);
 });
 
-Task("Restore-NuGet-Packages")
-    .IsDependentOn("Clean")
-    .Does(() =>
-{
-    //NuGetRestore("./src/Example.sln");
-});
-
 Task("Build")
-    .IsDependentOn("Restore-NuGet-Packages")
     .Does(() =>
 {
     DotNetCoreBuild("./app");
