@@ -10,4 +10,5 @@ test:
   # override:
   #   - dotnet test test
   override:
+    - chmod +rwx ./build.sh
     - ./build.sh
