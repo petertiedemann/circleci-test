@@ -1,4 +1,6 @@
 #tool nuget:?package=NUnit.ConsoleRunner&version=3.4.0
+#tool "nuget:?package=xunit.runners&version=1.9.2"
+
 //////////////////////////////////////////////////////////////////////
 // ARGUMENTS
 //////////////////////////////////////////////////////////////////////
@@ -27,31 +29,33 @@ Task("Restore-NuGet-Packages")
     .IsDependentOn("Clean")
     .Does(() =>
 {
-    NuGetRestore("./src/Example.sln");
+    //NuGetRestore("./src/Example.sln");
 });
 
 Task("Build")
     .IsDependentOn("Restore-NuGet-Packages")
     .Does(() =>
 {
-    DotNetCoreBuild(".")
+    DotNetCoreBuild("./app");
+    DotNetCoreBuild("./test");
 });
 
-// Task("Run-Unit-Tests")
-//     .IsDependentOn("Build")
-//     .Does(() =>
-// {
-//     NUnit3("./src/**/bin/" + configuration + "/*.Tests.dll", new NUnit3Settings {
-//         NoResults = true
-//         });
-// });
+Task("Run-Unit-Tests")
+    .IsDependentOn("Build")
+    .Does(() =>
+{
+    XUnit("**/" + configuration + "/*.Tests.dll", new XUnitSettings {
+        HtmlReport = true,
+        OutputDirectory = "./test-results"
+    });
+});
 
 //////////////////////////////////////////////////////////////////////
 // TASK TARGETS
 //////////////////////////////////////////////////////////////////////
 
 Task("Default")
-    .IsDependentOn("Run-Unit-Tests");
+    .IsDependentOn("Build");
 
 //////////////////////////////////////////////////////////////////////
 // EXECUTION

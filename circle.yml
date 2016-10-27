@@ -4,8 +4,10 @@ dependencies:
     - sudo apt-key adv --keyserver apt-mo.trafficmanager.net --recv-keys 417A0893
     - sudo apt-get update
     - sudo apt-get install dotnet-dev-1.0.0-preview2-003131
-  override:
-    - dotnet restore
+  # override:
+  #   - dotnet restore
 test:
+  # override:
+  #   - dotnet test test
   override:
-    - dotnet test test
+    - ./build.sh
