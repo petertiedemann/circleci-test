@@ -5,6 +5,7 @@ dependencies:
     - sudo apt-get update
     - sudo apt-get install dotnet-dev-1.0.0-preview2-003131
     - sudo apt-get install mono-complete
+    - sudo apt-get install nuget
     - nuget
   # override:
   #   - dotnet restore
