@@ -5,6 +5,7 @@ dependencies:
     - sudo apt-get update
     - sudo apt-get install dotnet-dev-1.0.0-preview2-003131
     - sudo apt-get install mono-complete
+    - nuget
   # override:
   #   - dotnet restore
 test:
@@ -12,4 +13,4 @@ test:
   #   - dotnet test test
   override:
     - chmod +rwx ./build.sh
-    - ./build.sh
+    - ./build.sh -Verbosity Diagnostic
