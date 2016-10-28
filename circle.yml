@@ -9,7 +9,7 @@ dependencies:
     - sudo apt-get install mono-complete
     - sudo apt-get install nuget
     - sudo dpkg -s nuget
-    - nuget
+    - mono nuget
   # override:
   #   - dotnet restore
 test:
