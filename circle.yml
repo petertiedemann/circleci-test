@@ -8,6 +8,7 @@ dependencies:
     - sudo apt-get install dotnet-dev-1.0.0-preview2-003131
     - sudo apt-get install mono-complete
     - sudo apt-get install nuget
+    - sudo dpkg -s nuget
     - nuget
   # override:
   #   - dotnet restore
