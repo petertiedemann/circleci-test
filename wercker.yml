@@ -8,3 +8,7 @@ build:
           dotnet build app
           dotnet build test
           dotnet test test
+    - script:
+        name: cake build
+        code: |
+          ./build.sh -Verbosity Diagnostic
