@@ -24,5 +24,7 @@ build:
         name: echo
         code: |
           echo "hello world!"
-
-          dotnet --version
+    - script:
+        name: dotnet
+        code: |
+          dotnet restore
