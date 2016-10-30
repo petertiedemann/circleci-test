@@ -1,13 +1,13 @@
 box: mono
 build:
   steps:
-    - script:
-        name: dotnet build
-        code: |
-          dotnet restore
-          dotnet build app
-          dotnet build test
-          dotnet test test
+    # - script:
+    #     name: dotnet build
+    #     code: |
+    #       dotnet restore
+    #       dotnet build app
+    #       dotnet build test
+    #       dotnet test test
     - script:
         name: cake build
         code: |
