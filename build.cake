@@ -13,17 +13,17 @@ var configuration = Argument("configuration", "Release");
 //////////////////////////////////////////////////////////////////////
 
 // Define directories.
-var buildDir = Directory("./**/bin") + Directory(configuration);
+// var buildDir = Directory("./**/bin") + Directory(configuration);
 
 //////////////////////////////////////////////////////////////////////
 // TASKS
 //////////////////////////////////////////////////////////////////////
 
-Task("Clean")
-    .Does(() =>
-{
-    CleanDirectory(buildDir);
-});
+// Task("Clean")
+//     .Does(() =>
+// {
+//     CleanDirectory(buildDir);
+// });
 
 Task("Build")
     .Does(() =>
