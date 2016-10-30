@@ -1,0 +1,7 @@
+build:
+  image: chcosta/dotnetcore
+  commands:
+    - dotnet restore
+    - dotnet build app/project.json
+    - dotnet build test/project.json
+    - dotnet test
