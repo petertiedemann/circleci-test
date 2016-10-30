@@ -2,10 +2,6 @@ box: microsoft/aspnetcore-build
 build:
   steps:
     - script:
-        name: echo
-        code: |
-          echo "hello world!"
-    - script:
         name: dotnet build
         code: |
           dotnet restore
