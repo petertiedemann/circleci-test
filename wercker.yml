@@ -6,8 +6,9 @@ build:
         code: |
           echo "hello world!"
     - script:
-        name: dotnet
+        name: dotnet build
         code: |
           dotnet restore
-          dotnet build
+          dotnet build app
+          dotnet build test
           dotnet test
