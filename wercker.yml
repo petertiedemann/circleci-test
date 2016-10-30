@@ -13,4 +13,4 @@ build:
         code: |
           echo $OSTYPE
           chmod +rwx ./build.sh
-          ./build.sh -Verbosity Diagnostic
+          ./build.sh
