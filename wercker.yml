@@ -1,4 +1,4 @@
-box: microsoft/aspnetcore-build
+box: mono
 build:
   steps:
     - script:
