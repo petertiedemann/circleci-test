@@ -11,4 +11,4 @@ build:
           dotnet restore
           dotnet build app
           dotnet build test
-          dotnet test
+          dotnet test test
