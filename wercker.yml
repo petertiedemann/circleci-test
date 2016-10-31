@@ -1,4 +1,4 @@
-box: mono
+box: ziphnor/mono-dotnet
 build:
   steps:
     # - script:
