@@ -61,6 +61,10 @@ if [ ! -f "$TOOLS_DIR/packages.config" ]; then
     fi
 fi
 
+# if [ ! -f "/bin/nuget.exe" ]; then
+
+# fi
+
 # Download NuGet if it does not exist.
 if [ ! -f "$NUGET_EXE" ]; then
     echo "Downloading NuGet..."
@@ -69,6 +73,7 @@ if [ ! -f "$NUGET_EXE" ]; then
         echo "An error occured while downloading nuget.exe."
         exit 1
     fi
+    $NUGET_EXE
 fi
 
 # Restore tools from NuGet.
