@@ -6,4 +6,3 @@ build:
         code: |
           cp /bin/tools ./tools -rf
           mono /bin/tools/Cake/Cake.exe ./build.cake
-          
