@@ -28,7 +28,7 @@ var configuration = Argument("configuration", "Release");
 Task("Build")
     .Does(() =>
 {
-    DotNetRestore();
+    DotNetCoreRestore();
     DotNetCoreBuild("./app");
     DotNetCoreBuild("./test");
 });
