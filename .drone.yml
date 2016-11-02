@@ -1,4 +1,0 @@
-build:
-  image: chcosta/dotnetcore
-  commands:
-    - echo "Hello from dotnetcore"

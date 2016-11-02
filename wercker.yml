@@ -1,16 +1,9 @@
 box: ziphnor/mono-dotnet
 build:
   steps:
-    # - script:
-    #     name: dotnet build
-    #     code: |
-    #       dotnet restore
-    #       dotnet build app
-    #       dotnet build test
-    #       dotnet test test
     - script:
         name: cake build
         code: |
-          echo $OSTYPE
-          chmod +rwx ./build.sh
-          ./build.sh
+          cp /bin/tools ./tools -rf
+          mono /bin/tools/Cake/Cake.exe ./build.cake
+          
