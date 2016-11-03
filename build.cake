@@ -19,8 +19,9 @@ Task("Version")
         });
         var versionInfo = GitVersion(new GitVersionSettings{ OutputType = GitVersionOutput.Json });
 
-        Information(versionInfo.NuGetVersion);
+        Information( "GitVersion determined : " + versionInfo.NuGetVersion );
         // Update project.json
+    
 
      foreach( var jsonProject in JsonProjects() ){
         var updatedProjectJson = System.IO.File.ReadAllText(jsonProject.FullPath)
