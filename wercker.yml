@@ -4,5 +4,6 @@ build:
     - script:
         name: cake build
         code: |
+          pwd
           cp /bin/tools ./tools -rf
           mono ./tools/Cake/Cake.exe ./build.cake
