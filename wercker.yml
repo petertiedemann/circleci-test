@@ -4,7 +4,9 @@ build:
     - script:
       name: tooling
       code: |
+        echo "Working directory"
         pwd
+        ls
         cp /bin/tools ./tools -rf
     - script:
         name: cake build
