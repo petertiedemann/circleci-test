@@ -3,18 +3,13 @@
 #tool "nuget:?package=GitVersion.CommandLine"
 
 var target = Argument("target", "Default");
-var configuration = Argument("configuration", "Release");
-var versionString = Argument("version", "0.0.0.localbuild");
+string configuration = Argument("configuration", "Release");
+string versionString = Argument("version", "0.0.0.localbuild");
+string artifacts = Argument("artifacts", "./artifacts");
 
-
-// Define directories.
-// var buildDir = Directory("./**/bin") + Directory(configuration);
-
-// Task("Clean")
-//     .Does(() =>
-// {
-//     CleanDirectory(buildDir);
-// });
+public IEnumerable<FilePath> JsonProjects() {
+    return GetFiles("./**/project.json");
+}
 
 Task("Version")
     .Does(() => {
@@ -27,13 +22,12 @@ Task("Version")
         Information(versionInfo.NuGetVersion);
         // Update project.json
 
-     foreach( var jsonProject in GetFiles("./**/project.json") ){
+     foreach( var jsonProject in JsonProjects() ){
         var updatedProjectJson = System.IO.File.ReadAllText(jsonProject.FullPath)
             .Replace("1.0.0-*", versionInfo.NuGetVersion);
 
         System.IO.File.WriteAllText(jsonProject.FullPath, updatedProjectJson);
      }
-    
     });
 
 Task("Pack").Does( () => {
@@ -44,26 +38,31 @@ Task("Pack").Does( () => {
             NoBuild = true
         };
 
-     foreach( var jsonProject in GetFiles("./**/project.json") ){
+     foreach( var jsonProject in JsonProjects() ){
         DotNetCorePack(jsonProject.FullPath);
      }
     
 } );
 
 Task("Restore").Does(() => {
-
-    var netCoreProjects = GetFiles("./**/project.json");
+    var netCoreProjects = JsonProjects();
 
     if( netCoreProjects.Any() ){
         DotNetCoreRestore();
     }
+
+     foreach( var sln in GetFiles("./**/*.sln") ){
+        NuGetRestore(sln.FullPath);
+     }
 });
+
 // Build all projects
 Task("Build")
+    .IsDependentOn("Restore")
     .IsDependentOn("Version")
     .Does(() =>
 {
-    var netCoreProjects = GetFiles("./**/project.json");
+    var netCoreProjects = JsonProjects();
 
     if( netCoreProjects.Any() ){
         DotNetCoreRestore();
@@ -74,22 +73,32 @@ Task("Build")
     }
     
      foreach( var sln in GetFiles("./**/*.sln") ){
-        NuGetRestore(sln.FullPath);
         DotNetBuild(sln.FullPath); 
      }
 });
 
-Task("Run-Unit-Tests")
+Task("Test")
     .IsDependentOn("Build")
     .Does(() =>
 {
-    XUnit("**/" + configuration + "/*.Tests.dll", new XUnitSettings {
-        HtmlReport = true,
-        OutputDirectory = "./test-results"
+    NUnit3("**/" + configuration + "/*.Tests.dll", new NUnit3Settings {
     });
 });
 
+Task("Package")
+    .IsDependentOn("Build").Does(()=> {
+        foreach(var jsonProject in JsonProjects()){
+            var settings = new DotNetCorePackSettings
+            {
+                OutputDirectory = artifacts,
+                NoBuild = true
+            };
+
+            DotNetCorePack(jsonProject.FullPath, settings);
+        }       
+    });
+
 Task("Default")
-    .IsDependentOn("Run-Unit-Tests");
+    .IsDependentOn("Test");
 
 RunTarget(target);
