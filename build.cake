@@ -15,6 +15,7 @@ Task("Version")
     .Does(() => {
         GitVersion(new GitVersionSettings{
             UpdateAssemblyInfo = true,
+            NoFetch = true,
             OutputType = GitVersionOutput.BuildServer
         });
         var versionInfo = GitVersion(new GitVersionSettings{ OutputType = GitVersionOutput.Json });
@@ -22,7 +23,6 @@ Task("Version")
         Information( "GitVersion determined : " + versionInfo.NuGetVersion );
         // Update project.json
     
-
      foreach( var jsonProject in JsonProjects() ){
         var updatedProjectJson = System.IO.File.ReadAllText(jsonProject.FullPath)
             .Replace("1.0.0-*", versionInfo.NuGetVersion);
